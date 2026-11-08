@@ -1,0 +1,22 @@
+# Vötsch manual: copyrighted, not ours to publish
+00_Documentation/*.pdf
+
+# KiCad
+*-backups/
+*.lck
+_autosave-*
+*.kicad_prl
+fp-info-cache
+\#auto_saved_files#
+
+# Anatomy build output and backups
+01_Design/anatomy/shots/
+01_Design/anatomy/*-v2.*
+01_Design/anatomy/*preview*.html
+node_modules/
+01_Design/anatomy/*-v1.*
+# built figure lives in docs/index.html
+01_Design/anatomy/chamber*.html
+
+# phone originals carry GPS; stripped copies are in 00_Documentation/photos
+00_Documentation/PXL_*.jpg

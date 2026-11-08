@@ -1,0 +1,110 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "6c82b93a-476c-4c23-a5b3-b5dec7e2234b")
+	(paper "A4")
+	(title_block
+		(title "VMT 04/16 controller - Specimen Protection")
+		(date "2026-11-03")
+		(rev "0.1")
+	)
+	(lib_symbols)
+	(text "Specimen Protection\nSocket for the original 3N2 card (LP 77-070-8, 8-pin edge connector) - kept unchanged.\nSupply 24 V~ (4L1/4L2). t> pot R1 (1 k, MUP 4000) on the front plate. Own Pt100 B3.\n3N2 relay contact 3K3 sits in the SPEC_TRIP loop -> fault relay 2K8 in Fault_Logic."
+		(exclude_from_sim no)
+		(at 25.4 20.32 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "b886b114-6e6f-410f-a8f7-6f949f068915")
+	)
+	(text_box "TO DESIGN\n- Socket for the original 3N2 card (LP 77-070-8), same pinout as old PL2 (manual p. 58):\n  1 = E/S (pot R1), 8 = A+, 2/3 = Pt100 B3, 4/5 = 24 V~ (4L1/4L2), 6/7 = relay contact 3K3.\n- Card guides so the card is held like on the old PL2.\n- Connector to the t> potentiometer R1 on the front plate (reuse the original pot). Terminals I/II only on ranges below 0 °C - check which 3N2 variant is fitted (0-100 or 0-200 °C).\n- R5 1.5k as in the original circuit (p. 58).\n- SPEC_TRIP_OUT -> 3K3 -> SPEC_TRIP_RET: contact in the loop of fault relay 2K8 (Fault_Logic).\n\nCOMPONENT PROPOSAL\n- Card-edge socket: measure finger count, pitch (likely 3.96 mm) and single/double-sided on the card first, then pick a matching 0.156 in card-edge connector.\n- t> pot: original Megatron MUP 4000, 1 kOhm (reuse). Pot connector: 3-pin JST XH or 3.5 mm terminal block."
+		(exclude_from_sim no)
+		(at 76.2 50.8 0)
+		(size 147.32 33.6)
+		(margins 1.0287 1.0287 1.0287 1.0287)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(type none)
+		)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "f04ea78c-aa97-40ba-9017-c262be04de30")
+	)
+	(hierarchical_label "24VAC_4L1"
+		(shape passive)
+		(at 63.5 63.5 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "09c5e477-0aed-44f8-abd8-8a9aca288afe")
+	)
+	(hierarchical_label "SPEC_TRIP_RET"
+		(shape output)
+		(at 233.68 63.5 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "40487534-73f9-4d1e-afe0-8c833b24a835")
+	)
+	(hierarchical_label "24VAC_4L2"
+		(shape passive)
+		(at 63.5 68.58 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "5abf8bb2-c9f5-4b81-b969-70d9d721d4b5")
+	)
+	(hierarchical_label "B3_B"
+		(shape passive)
+		(at 63.5 78.74 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "7b40e10b-d30c-467d-af55-22beb7dd1774")
+	)
+	(hierarchical_label "SPEC_TRIP_OUT"
+		(shape input)
+		(at 63.5 83.82 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "9af1ab79-a834-4917-8c66-cf8e9d21eb0c")
+	)
+	(hierarchical_label "B3_A"
+		(shape passive)
+		(at 63.5 73.66 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "c2332623-6ca4-43cc-b511-aad5a0a0f5e2")
+	)
+)

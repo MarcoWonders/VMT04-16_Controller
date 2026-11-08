@@ -1,0 +1,165 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "7b3f6251-f387-40b4-b3bc-1f8ce985f846")
+	(paper "A4")
+	(title_block
+		(title "VMT 04/16 controller - Outputs")
+		(date "2026-11-03")
+		(rev "0.1")
+	)
+	(lib_symbols)
+	(text "Outputs\nPotential-free relays, coils driven from the MCU (low-side driver). De-energised = off.\nContacts switch TE_L+ -> CMD_HEAT / CMD_COOL / CMD_COND_FAN, and T_L+ -> CMD_LIGHT (as 2S2 did).\nCOMP_1K10 = TE_L+ via diode (as 2V51) - see Signal_list V3."
+		(exclude_from_sim no)
+		(at 25.4 20.32 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "164a802a-deb5-454f-bb90-be257551e66a")
+	)
+	(text_box "TO DESIGN\n- 4 potential-free contacts, replacing 3K2 / 3K1 / 2K17 / 2S2:\n  TE_L+ -> CMD_HEAT,  TE_L+ -> CMD_COOL,  TE_L+ -> CMD_COND_FAN,  T_L+ -> CMD_LIGHT.\n- Solid state, not mechanical: heating runs time-proportional (~2 s period), a relay contact would wear out within a few thousand operating hours.\n- Input LEDs driven straight from MCU GPIO via series resistor. 100k pull-down on each input: MCU reset or hang = all outputs off.\n- Loads are on PL1: relay coils 1K4 / 1K9 / 1K2 and heater SSR 1V6 (via F7). Measure currents (Signal_list V6). TVS across each output against coil kick-back.\n- COMP_1K10 = TE_L+ through a diode (as 2V51) - confirm Signal_list V3 first.\n- Optional: indicator LED per output for commissioning.\n\nCOMPONENT PROPOSAL\n- PhotoMOS relay, 60 V / >= 0.5 A, e.g. Panasonic AQY21x / AQV21x series (check voltage and load ratings against V6).\n- LED series resistor: ~270-470 Ohm at 3V3 (set for the PhotoMOS LED current in the datasheet).\n- TVS: SMBJ30A per output. COMP_1K10 diode: S1M (1 A / 1000 V)."
+		(exclude_from_sim no)
+		(at 76.2 50.8 0)
+		(size 147.32 40.2)
+		(margins 1.0287 1.0287 1.0287 1.0287)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(type none)
+		)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "bdb86fc0-4657-4b3c-8f8d-9d1e98935afd")
+	)
+	(hierarchical_label "COMP_1K10"
+		(shape output)
+		(at 233.68 83.82 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "0d413651-3763-42db-b816-235515eeefcf")
+	)
+	(hierarchical_label "CMD_COND_FAN"
+		(shape output)
+		(at 233.68 73.66 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "3f66993a-97aa-4b59-931a-263f6544dada")
+	)
+	(hierarchical_label "CMD_COOL"
+		(shape output)
+		(at 233.68 68.58 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "45e7fd0f-e02f-4c4d-8136-0efdc1597dc3")
+	)
+	(hierarchical_label "LIGHT_ON"
+		(shape input)
+		(at 63.5 88.9 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "6cd397f9-8f57-4348-b73e-285d53173b57")
+	)
+	(hierarchical_label "COND_FAN_ON"
+		(shape input)
+		(at 63.5 83.82 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "9e70738f-8ec0-417f-a969-c7632642037e")
+	)
+	(hierarchical_label "T_L+"
+		(shape input)
+		(at 63.5 63.5 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "b67f5005-a1b2-4cb6-ba84-85b34757391f")
+	)
+	(hierarchical_label "CMD_HEAT"
+		(shape output)
+		(at 233.68 63.5 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "c2c8a22f-7820-437b-823c-c4795dbcc995")
+	)
+	(hierarchical_label "HEAT_ON"
+		(shape input)
+		(at 63.5 73.66 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "d296d331-8c80-4737-b0a1-6de45b4352ae")
+	)
+	(hierarchical_label "COOL_ON"
+		(shape input)
+		(at 63.5 78.74 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "dce4f826-67cc-41e0-8b31-b204bdfa1fb0")
+	)
+	(hierarchical_label "CMD_LIGHT"
+		(shape output)
+		(at 233.68 78.74 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "ecb3c29c-2fc4-4f2e-96d1-27a2d50378b8")
+	)
+	(hierarchical_label "TE_L+"
+		(shape input)
+		(at 63.5 68.58 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "ed7cc93f-e57c-4b05-a243-db34932b235a")
+	)
+)

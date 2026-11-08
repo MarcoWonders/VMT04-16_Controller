@@ -1,0 +1,308 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "caa8a761-a109-4d8f-9311-62e889ecbd88")
+	(paper "A4")
+	(title_block
+		(title "VMT 04/16 controller - Fault Logic")
+		(date "2026-11-03")
+		(rev "0.1")
+	)
+	(lib_symbols)
+	(text "Fault Logic\nHardwired fault logic - no firmware in this path. Rebuild of PL2 relays 2K2/2K3/2K4/2K6/2K7/2K8/2K9/2K18.\nRUN_CMD energises the run relay -> T_L+ (was Temp. button 2S1/2K2).\nEach fault relay holds itself through its field loop (xx_OUT -> PL1 contact -> xx_RET); armed by a pulse at run-on (2K3 + 2C1).\nExternal enable loop and all fault relays OK -> 2K4 -> TE_L+ (load mains on PL1). 2K4 NC -> FAULT_EXT.\nSTAT_* = 24 V copies of the relay states for Status_Inputs (read-only for the MCU)."
+		(exclude_from_sim no)
+		(at 25.4 20.32 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "ce315089-8c4a-40b5-a09c-ee6105759c98")
+	)
+	(text_box "TO DESIGN  (hardware only - no firmware in this path)\n- Run relay K_RUN (was 2S1/2K2): coil +24V, low side switched by N-MOSFET from RUN_CMD, 10k pull-down (MCU reset = off). NO contact: +24V -> T_L+.\n- 5 latching fault relays (2K6 F5 limiter, 2K7 fan M1 thermal, 2K8 specimen protection, 2K9 compressor thermal, 2K18 F2 overpressure):\n  T_L+ -> own NO hold contact -> xx_OUT -> field contact on PL1 -> xx_RET -> coil. Opens once = relay drops and stays off.\n- Arming (was 2K3 + 2C1/2R2): short pulse when T_L+ comes up, one K_ARM contact feeds every coil through its own diode (as 2V65..2V80).\n  Reset of a tripped fault = switch RUN off and on, same as the original.\n- Chain: T_L+ -> EXT_EN_OUT/RET (PL1 76/77) -> NO contacts of all 5 fault relays -> CHAIN_OUT/RET -> coil K_OK (was 2K4).\n- K_OK NO: T_L+ -> TE_L+ (coils 1K7/1K8 on PL1 = mains to all loads). K_OK NC: T_L+ -> FAULT_EXT (ext. relay 01/K2 + front FAULT LED, max 100 mA).\n- STAT_xx = coil voltage of each fault relay and K_OK (24 V = OK), to Status_Inputs.\n- Flyback diode on every coil. Resettable fuse in every line that leaves the board (xx_OUT, EXT_EN_OUT, CHAIN_OUT, TE_L+, FAULT_EXT).\n\nCOMPONENT PROPOSAL\n- Relays (8x: RUN, ARM, 5 faults, OK): Omron G5V-2-H1 DC24 (2 changeover, 24 V coil) - one type for the whole board. Alt: Panasonic TQ2-24V.\n- RUN driver: AO3400A + 10k pull-down. Flyback / arming diodes: 1N4148W.\n- Arming RC: start from original values (1k / capacitor) and tune for ~100 ms.\n- Fuses: PTC ~0.2 A hold, rated >= 30 V (e.g. Bourns MF-MSMF020, check rating) per outgoing line; TE_L+ sized after measuring 1K7+1K8 coil current (V6)."
+		(exclude_from_sim no)
+		(at 76.2 50.8 0)
+		(size 147.32 55.6)
+		(margins 1.0287 1.0287 1.0287 1.0287)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(type none)
+		)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "3ad26052-89e7-4690-91db-dd59b7b5a295")
+	)
+	(hierarchical_label "M1_TH_OUT"
+		(shape output)
+		(at 233.68 104.14 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "0ebfc54e-c532-48cf-98ed-a6e250c43e6a")
+	)
+	(hierarchical_label "CHAIN_RET"
+		(shape input)
+		(at 63.5 73.66 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "0ef94aba-7e5d-429c-bf14-b39c151daf87")
+	)
+	(hierarchical_label "F5_RET"
+		(shape input)
+		(at 63.5 78.74 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "1fcccc1d-51ff-4d61-9433-ced2c974819d")
+	)
+	(hierarchical_label "FAULT_EXT"
+		(shape output)
+		(at 233.68 73.66 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "278454dd-5164-45bc-8369-c1686e5367cc")
+	)
+	(hierarchical_label "EXT_EN_RET"
+		(shape input)
+		(at 63.5 68.58 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "3df0405d-5ee8-4d69-9bbf-05cb7351d062")
+	)
+	(hierarchical_label "STAT_M1_TH"
+		(shape output)
+		(at 233.68 129.54 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "3f2be614-98d8-4331-bcfb-cfa9bce28908")
+	)
+	(hierarchical_label "F5_OUT"
+		(shape output)
+		(at 233.68 88.9 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "537101c6-7a9b-4dbc-a34a-03003d0a24ee")
+	)
+	(hierarchical_label "F2_OUT"
+		(shape output)
+		(at 233.68 93.98 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "5793840a-e7f7-4786-9e87-ad116cff2a89")
+	)
+	(hierarchical_label "STAT_SPEC"
+		(shape output)
+		(at 233.68 134.62 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "59958861-a4b8-4217-88f3-6283dce80e2b")
+	)
+	(hierarchical_label "STAT_COMP_TH"
+		(shape output)
+		(at 233.68 124.46 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "5e7fefb4-f407-426a-9e21-6a2dcabac43d")
+	)
+	(hierarchical_label "COMP_TH_RET"
+		(shape input)
+		(at 63.5 88.9 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "7bc8480b-922c-4e29-bfba-35d0a2bd20b8")
+	)
+	(hierarchical_label "STAT_F5"
+		(shape output)
+		(at 233.68 114.3 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "8b3e097d-6896-4596-83a8-f0b9128f5c11")
+	)
+	(hierarchical_label "STAT_F2"
+		(shape output)
+		(at 233.68 119.38 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "916128cf-64a1-4f77-800c-1b243f0e1265")
+	)
+	(hierarchical_label "SPEC_TRIP_RET"
+		(shape input)
+		(at 63.5 99.06 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "93890c3b-f7f1-41e5-a30f-bbecee419a46")
+	)
+	(hierarchical_label "F2_RET"
+		(shape input)
+		(at 63.5 83.82 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "9953bd08-5bad-43bb-b503-69edd9365d72")
+	)
+	(hierarchical_label "STAT_OK"
+		(shape output)
+		(at 233.68 139.7 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "a907b9c7-5e2d-49ff-8bf3-de83236c6fbf")
+	)
+	(hierarchical_label "EXT_EN_OUT"
+		(shape output)
+		(at 233.68 78.74 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "bc2d55aa-cc02-4392-9807-052413acd8dc")
+	)
+	(hierarchical_label "TE_L+"
+		(shape output)
+		(at 233.68 68.58 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "bd8346a3-5c0b-47ba-979f-3fa01974c47a")
+	)
+	(hierarchical_label "M1_TH_RET"
+		(shape input)
+		(at 63.5 93.98 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "c220b667-0c0f-4f52-a8e7-4069fc3768d2")
+	)
+	(hierarchical_label "T_L+"
+		(shape output)
+		(at 233.68 63.5 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "c54167e0-9eef-4e4e-80d6-44d71548d5c1")
+	)
+	(hierarchical_label "RUN_CMD"
+		(shape input)
+		(at 63.5 63.5 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "d6374d77-bac7-4db0-8642-af1a72aed6b2")
+	)
+	(hierarchical_label "SPEC_TRIP_OUT"
+		(shape output)
+		(at 233.68 109.22 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "d645614f-36a0-4675-966b-bc9283a32366")
+	)
+	(hierarchical_label "COMP_TH_OUT"
+		(shape output)
+		(at 233.68 99.06 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "dd5ee375-4854-4655-9fde-037d14d2231d")
+	)
+	(hierarchical_label "CHAIN_OUT"
+		(shape output)
+		(at 233.68 83.82 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "ffbecf9b-924f-4294-b818-68f6215dcf79")
+	)
+)

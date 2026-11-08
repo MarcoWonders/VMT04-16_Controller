@@ -1,0 +1,220 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "1bddba22-ed99-409c-9638-5b75811de997")
+	(paper "A4")
+	(title_block
+		(title "VMT 04/16 controller - Status Inputs")
+		(date "2026-11-03")
+		(rev "0.1")
+	)
+	(lib_symbols)
+	(text "Status Inputs\n24 V -> 3V3 optocoupler inputs for everything the MCU reads from the power side."
+		(exclude_from_sim no)
+		(at 25.4 20.32 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "237924b0-2b06-4a54-94be-9ae9665d8916")
+	)
+	(text_box "TO DESIGN\n- 8 inputs from the 24 V side -> 3V3 logic for the MCU: 6 fault relay states (STAT_*), COOL_IDLE (1K4 NC) and Y2_STATE (1K15).\n- 24 V = OK / active -> opto on -> output pulled low (invert in firmware).\n- Input: series resistor for ~3 mA at 24 V, reverse diode across the LED, threshold such that < ~10 V reads as off.\n- Output: open collector with pull-up to +3V3, small RC against relay contact bounce.\n- Grounds are common (L- = GND), so the optos are for noise immunity, not galvanic isolation.\n\nCOMPONENT PROPOSAL\n- 2x Toshiba TLP291-4 (4-channel phototransistor opto, SOP-16).\n- Input resistor 6.8k 0.25 W (~3.3 mA at 24 V), reverse diode 1N4148W, pull-up 10k, RC 1k / 100 nF."
+		(exclude_from_sim no)
+		(at 76.2 50.8 0)
+		(size 147.32 27)
+		(margins 1.0287 1.0287 1.0287 1.0287)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(type none)
+		)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "7703c38f-513c-4f65-8b58-c44a2ecbfba2")
+	)
+	(hierarchical_label "STAT_M1_TH"
+		(shape input)
+		(at 63.5 78.74 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "00b74fb0-e228-420c-a0c2-84a29dc7f665")
+	)
+	(hierarchical_label "STAT_COMP_TH"
+		(shape input)
+		(at 63.5 73.66 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "09eb88a9-2edf-4045-8a4e-ed584c1c0853")
+	)
+	(hierarchical_label "IS_Y2_OPEN"
+		(shape output)
+		(at 233.68 99.06 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "15e9935b-a4c1-4a7a-acfb-7f541cb1be4a")
+	)
+	(hierarchical_label "STAT_OK"
+		(shape input)
+		(at 63.5 88.9 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "3047c138-295a-4baf-b29e-39267a5c98b7")
+	)
+	(hierarchical_label "FLT_F5"
+		(shape output)
+		(at 233.68 63.5 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "44d91a03-b56a-4e02-81d5-4c0a9f464b4f")
+	)
+	(hierarchical_label "COOL_IDLE"
+		(shape input)
+		(at 63.5 93.98 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "53d2d123-1d1c-4871-8eca-fe75b8b2c725")
+	)
+	(hierarchical_label "STAT_F2"
+		(shape input)
+		(at 63.5 68.58 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "5a5c7b66-228b-405f-af5c-1d68ed85f393")
+	)
+	(hierarchical_label "FLT_F2"
+		(shape output)
+		(at 233.68 68.58 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "766fe7ca-cd78-4e3f-bf81-3280367b4149")
+	)
+	(hierarchical_label "STAT_F5"
+		(shape input)
+		(at 63.5 63.5 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "82127ccc-f3ea-4c1f-8d60-98867ee5a63e")
+	)
+	(hierarchical_label "FLT_SPEC"
+		(shape output)
+		(at 233.68 83.82 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "91f24061-506e-4861-8390-735e2691d1c6")
+	)
+	(hierarchical_label "FLT_M1_TH"
+		(shape output)
+		(at 233.68 78.74 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "968ac9cd-03d4-4656-9850-0a4aafafce62")
+	)
+	(hierarchical_label "IS_COOL_IDLE"
+		(shape output)
+		(at 233.68 93.98 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "9920557e-a9e5-4c65-8aee-ad600983455a")
+	)
+	(hierarchical_label "STAT_SPEC"
+		(shape input)
+		(at 63.5 83.82 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "d1107131-b6a8-4e45-877a-7e3e658932ea")
+	)
+	(hierarchical_label "Y2_STATE"
+		(shape input)
+		(at 63.5 99.06 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "e52ff4b5-49d0-440a-b918-b768d7b9776d")
+	)
+	(hierarchical_label "FLT_COMP_TH"
+		(shape output)
+		(at 233.68 73.66 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "e7b993de-6d3a-4df5-bf01-e83a47468ee2")
+	)
+	(hierarchical_label "SYS_OK"
+		(shape output)
+		(at 233.68 88.9 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "f68a8ba5-fd87-4271-a2ac-efe5bc8fdfcb")
+	)
+)
